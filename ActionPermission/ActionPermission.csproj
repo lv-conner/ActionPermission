@@ -9,4 +9,9 @@
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.7" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ActionPermission.Domain\ActionPermission.Domain.csproj" />
+    <ProjectReference Include="..\ActionPermission.Service.Interface\ActionPermission.Service.Interface.csproj" />
+  </ItemGroup>
+
 </Project>

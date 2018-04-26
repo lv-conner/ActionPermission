@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ActionPermission.Models
+namespace ActionPermission.Domain
 {
     public class ActionPermissonModel
     {

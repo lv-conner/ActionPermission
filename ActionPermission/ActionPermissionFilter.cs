@@ -1,5 +1,7 @@
-﻿using ActionPermission.Options;
+﻿using ActionPermission.Domain;
+using ActionPermission.Services;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.AspNetCore.Mvc.Filters;
@@ -10,6 +12,8 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using ActionPermission.Services.Interface;
+using ActionPermission.Domain.Options;
 
 namespace ActionPermission
 {
@@ -21,10 +25,14 @@ namespace ActionPermission
     {
         private readonly SystemNoOptions options;
         private readonly IHostingEnvironment hostingEnvironment;
-        public ActionPermissionFilter(IOptions<SystemNoOptions> options,IHostingEnvironment hostingEnvironment)
+        private readonly IActionAuthorizationService authorizationServices;
+        private readonly ILogger logger;
+        public ActionPermissionFilter(IOptions<SystemNoOptions> options,IHostingEnvironment hostingEnvironment, IActionAuthorizationService authorizationServices,ILoggerFactory loggerFactory)
         {
             this.options = options.Value;
             this.hostingEnvironment = hostingEnvironment;
+            this.authorizationServices = authorizationServices;
+            logger = loggerFactory.CreateLogger<ActionPermissionFilter>();
         }
 
         public async Task OnAuthorizationAsync(AuthorizationFilterContext context)
@@ -34,8 +42,6 @@ namespace ActionPermission
                await OnUnAuthorizationAsync(context);
                return;
             }
-            
-
         }
 
         public async Task AuthorizationCore(AuthorizationFilterContext context)
@@ -68,6 +74,27 @@ namespace ActionPermission
             else
             {
                 ActionNo = actionNoAttribute.ActionNo;
+            }
+            var userId = context.HttpContext.User.Identity.Name;
+            var action = new ActionPermissonModel(SystemNo, ModuleNo, ActionNo);
+            try
+            {
+                bool hasPermission = await authorizationServices.HasPermissionAsync(userId, action);
+                if (hasPermission)
+                {
+                    logger.LogInformation(action.ToString());
+                    return;
+                }
+                else
+                {
+                    await OnUnAuthorizationAsync(context);
+                    logger.LogInformation(action.ToString());
+                    return;
+                }
+            }
+            catch
+            {
+                throw;
             }
         }
 

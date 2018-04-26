@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ActionPermission.Options
+namespace ActionPermission.Domain.Options
 {
     public class SystemNoOptions
     {
