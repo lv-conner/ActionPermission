@@ -21,11 +21,7 @@ namespace ActionPermission.Services
             {
                 this.options = new ActionPermissionOptions();
             }
-            if(authorizationRepository == null)
-            {
-                throw new ArgumentNullException("IActionAuthorizationRepository can not be null");
-            }
-            this.authorizationRepository = authorizationRepository;
+            this.authorizationRepository = authorizationRepository ?? throw new ArgumentNullException("IActionAuthorizationRepository can not be null");
         }
         public virtual bool HasPermission(string userId,string roleId, ActionPermissonModel action)
         {
