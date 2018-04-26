@@ -6,8 +6,12 @@ namespace ActionPermission.Domain
 {
     public class ActionPermissonModel
     {
-        public virtual ICollection<ActionPermissionRole> Roles { get; protected set; }
-        public virtual ICollection<ActionPermissionUser> Users { get; protected set; }
+        public ActionPermissonModel()
+        {
+
+        }
+        public virtual ICollection<RolePermission> Roles { get; protected set; }
+        public virtual ICollection<UserPermission> Users { get; protected set; }
         public ActionPermissonModel(string systemNameOrNo,string moduleNameOrNo,string actionNameOrNo)
             :this(systemNameOrNo,systemNameOrNo,moduleNameOrNo,moduleNameOrNo,actionNameOrNo,actionNameOrNo)
         {
@@ -15,6 +19,7 @@ namespace ActionPermission.Domain
         }
         public ActionPermissonModel(string systemName,string systemNo,string moduleName,string moduleNo,string actionName,string actionNo)
         {
+            ActionPermissionId = Guid.NewGuid().ToString();
             SystemName = systemName;
             ModuleName = moduleName;
             ActionName = actionName;
@@ -22,13 +27,9 @@ namespace ActionPermission.Domain
             ModuleNo = moduleNo;
             ActionNo = actionNo;
             ActionPermissionId = GeneratePermissionId();
-            Roles = new List<ActionPermissionRole>();
-            Users = new List<ActionPermissionUser>();
+            Roles = new List<RolePermission>();
+            Users = new List<UserPermission>();
         }
-        public ActionPermissionUser User { get; protected set; }
-        public ActionPermissionRole Role { get; protected set; }
-        public string RoleId { get; protected set; }
-        public string UserId { get; protected set; }
         public string ActionPermissionId { get; protected set; }
         public string SystemName { get; protected set;}
         public string ModuleName { get; protected set; }

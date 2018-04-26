@@ -23,7 +23,7 @@ namespace ActionPermission.EntityMap
         public void ConfigureRelationShip(EntityTypeBuilder<ActionPermissionUser> builder)
         {
             builder.HasMany(p => p.Roles).WithOne(p => p.User).HasForeignKey(p => p.UserId).OnDelete(DeleteBehavior.Cascade);
-            builder.HasMany(p => p.Rules).WithOne(p => p.User).HasForeignKey(p => p.UserId).OnDelete(DeleteBehavior.Cascade);
+            builder.HasMany(p => p.Permissions).WithOne(p => p.User).HasForeignKey(p => p.UserId).OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

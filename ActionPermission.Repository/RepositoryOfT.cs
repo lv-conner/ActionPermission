@@ -19,8 +19,8 @@ namespace ActionPermission.Repository
                 return context.Set<T>();
             }
         }
-        private ActionPermissionContext context;
-        public Repository(ActionPermissionContext context)
+        private DbContext context;
+        public Repository(DbContext context)
         {
             this.context = context;
         }

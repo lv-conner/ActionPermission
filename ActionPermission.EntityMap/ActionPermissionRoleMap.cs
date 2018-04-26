@@ -17,8 +17,8 @@ namespace ActionPermission.EntityMap
         }
         public void ConfigureRelationShip(EntityTypeBuilder<ActionPermissionRole> builder)
         {
-            builder.HasMany(p => p.Users).WithOne(p => p.Role).HasForeignKey(p => p.RoleId).OnDelete(DeleteBehavior.Cascade);
             builder.HasMany(p => p.Rules).WithOne(p => p.Role).HasForeignKey(p => p.RoleId).OnDelete(DeleteBehavior.Cascade);
+            builder.HasMany(p => p.Members).WithOne(p => p.Role).HasForeignKey(p => p.RoleId).OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Data.Common;
 using Microsoft.EntityFrameworkCore;
+using ActionPermission.EntityMap;
 
 namespace ActionPermission.Context
 {
@@ -19,6 +20,12 @@ namespace ActionPermission.Context
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.ApplyConfiguration(new ActionPermissionMap());
+            modelBuilder.ApplyConfiguration(new ActionPermissionRoleMap());
+            modelBuilder.ApplyConfiguration(new ActionPermissionUserMap());
+            modelBuilder.ApplyConfiguration(new UserPermissionMap());
+            modelBuilder.ApplyConfiguration(new RolePermissionMap());
+            modelBuilder.ApplyConfiguration(new RoleUserMap()); 
             base.OnModelCreating(modelBuilder);
         }
     }
