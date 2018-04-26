@@ -14,6 +14,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ActionPermission.Services.Interface;
 using ActionPermission.Domain.Options;
+using System.Security.Claims;
 
 namespace ActionPermission
 {
@@ -76,10 +77,11 @@ namespace ActionPermission
                 ActionNo = actionNoAttribute.ActionNo;
             }
             var userId = context.HttpContext.User.Identity.Name;
+            var roleId = context.HttpContext.User.Claims.Where(p => p.Type == ClaimTypes.Role).First()?.Value;
             var action = new ActionPermissonModel(SystemNo, ModuleNo, ActionNo);
             try
             {
-                bool hasPermission = await authorizationServices.HasPermissionAsync(userId, action);
+                bool hasPermission = await authorizationServices.HasPermissionAsync(userId, roleId, action);
                 if (hasPermission)
                 {
                     logger.LogInformation(action.ToString());

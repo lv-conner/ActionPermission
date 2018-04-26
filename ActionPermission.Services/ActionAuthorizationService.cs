@@ -10,7 +10,7 @@ using ActionPermission.Domain.Options;
 
 namespace ActionPermission.Services
 {
-    public class ActionAuthorizationService
+    public class ActionAuthorizationService: IActionAuthorizationService
     {
         private readonly IActionAuthorizationRepository authorizationRepository;
         private readonly ActionPermissionOptions options;
@@ -27,22 +27,26 @@ namespace ActionPermission.Services
             }
             this.authorizationRepository = authorizationRepository;
         }
-        public virtual bool HasPermission(string userId, ActionPermissonModel action)
+        public virtual bool HasPermission(string userId,string roleId, ActionPermissonModel action)
         {
-            if(IsAdminOrAnonymousAction(userId, action))
+            if(IsAdminOrAnonymousAction(userId,action))
             {
                 return true;
             }
-            return authorizationRepository.Find(userId, action);
+            if(roleId == null)
+            {
+                roleId = "";
+            }
+            return authorizationRepository.Find(userId, roleId, action);
         }
 
-        public virtual async Task<bool> HasPermissionAsync(string userId, ActionPermissonModel action)
+        public virtual async Task<bool> HasPermissionAsync(string userId,string roleId, ActionPermissonModel action)
         {
             if (IsAdminOrAnonymousAction(userId, action))
             {
                 return true;
             }
-            return await authorizationRepository.FindAsync(userId, action);
+            return await authorizationRepository.FindAsync(userId, roleId, action);
         }
 
         private bool IsAdminOrAnonymousAction(string userId,ActionPermissonModel action)

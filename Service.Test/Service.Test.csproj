@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.7" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.6.0" />
+    <PackageReference Include="xunit" Version="2.3.1" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.3.1" />
+    <DotNetCliToolReference Include="dotnet-xunit" Version="2.3.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ActionPermission.DbContext\ActionPermission.Context.csproj" />
+    <ProjectReference Include="..\ActionPermission.IRepository\ActionPermission.IRepository.csproj" />
+    <ProjectReference Include="..\ActionPermission.Repository\ActionPermission.Repository.csproj" />
+    <ProjectReference Include="..\ActionPermission.Service.Interface\ActionPermission.Service.Interface.csproj" />
+    <ProjectReference Include="..\ActionPermission.Services\ActionPermission.Services.csproj" />
+  </ItemGroup>
+
+</Project>

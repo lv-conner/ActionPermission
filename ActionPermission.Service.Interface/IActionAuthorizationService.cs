@@ -8,8 +8,8 @@ namespace ActionPermission.Services.Interface
 {
     public interface IActionAuthorizationService
     {
-        bool HasPermission(string userId, ActionPermissonModel action);
-        Task<bool> HasPermissionAsync(string userId, ActionPermissonModel action);
+        bool HasPermission(string userId,string roleId, ActionPermissonModel action);
+        Task<bool> HasPermissionAsync(string userId, string roleId, ActionPermissonModel action);
 
     }
 }

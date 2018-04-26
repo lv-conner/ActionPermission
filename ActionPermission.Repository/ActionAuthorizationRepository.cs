@@ -5,7 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
 namespace ActionPermission.Repository
 {
     public class ActionAuthorizationRepository : Repository<ActionPermissonModel>, IActionAuthorizationRepository
@@ -14,14 +15,32 @@ namespace ActionPermission.Repository
         {
 
         }
-        public bool Find(string userId, ActionPermissonModel action)
+        
+        public bool Find(string userId,string roleId, ActionPermissonModel action)
         {
-            throw new NotImplementedException();
+            var permission = Set.Include(p => p.Roles).Include(p => p.Users).First(p=>p.ActionPermissionId == action.ActionPermissionId);
+
+            if (permission.Users.FirstOrDefault(p=>p.UserId == userId) != null || permission.Roles.FirstOrDefault(p => p.PermissionId == action.ActionPermissionId && p.RoleId == roleId) != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
-        public Task<bool> FindAsync(string userId, ActionPermissonModel action)
+        public async Task<bool> FindAsync(string userId, string roleId, ActionPermissonModel action)
         {
-            throw new NotImplementedException();
+            var permission = await Set.Include(p => p.Roles).Include(p => p.Users).FirstAsync(p => p.ActionPermissionId == action.ActionPermissionId);
+            if (permission.Users.First(p => p.UserId == userId) != null || permission.Roles.First(p => p.PermissionId == action.ActionPermissionId && p.RoleId == roleId) != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

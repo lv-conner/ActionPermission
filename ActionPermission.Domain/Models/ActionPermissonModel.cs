@@ -43,7 +43,7 @@ namespace ActionPermission.Domain
         }
         private string GeneratePermissionId()
         {
-            return string.Format("{0}_{1}_{2}", SystemNo, ModuleNo, ModuleName);
+            return string.Format("{0}_{1}_{2}", SystemNo, ModuleNo, ActionNo);
         }
     }
 }

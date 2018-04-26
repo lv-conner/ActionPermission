@@ -12,15 +12,15 @@ namespace ActionPermission.Repository
 {
     public class Repository<T> : IRepository<T> where T : class
     {
-        private DbSet<T> Set
+        protected DbSet<T> Set
         {
             get
             {
                 return context.Set<T>();
             }
         }
-        private DbContext context;
-        public Repository(DbContext context)
+        protected ActionPermissionContext context;
+        public Repository(ActionPermissionContext context)
         {
             this.context = context;
         }

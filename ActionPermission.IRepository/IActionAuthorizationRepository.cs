@@ -8,7 +8,7 @@ namespace ActionPermission.IRepository
 {
     public interface IActionAuthorizationRepository:IRepository<ActionPermissonModel>
     {
-        bool Find(string userId, ActionPermissonModel action);
-        Task<bool> FindAsync(string userId, ActionPermissonModel action);
+        bool Find(string userId , string roleId, ActionPermissonModel action);
+        Task<bool> FindAsync(string userId, string roleId,ActionPermissonModel action);
     }
 }
