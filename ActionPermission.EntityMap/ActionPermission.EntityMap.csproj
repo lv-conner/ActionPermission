@@ -5,9 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ActionPermission.DbContext\ActionPermission.Context.csproj" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="2.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\ActionPermission.Domain\ActionPermission.Domain.csproj" />
-    <ProjectReference Include="..\ActionPermission.IRepository\ActionPermission.IRepository.csproj" />
   </ItemGroup>
 
 </Project>

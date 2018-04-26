@@ -19,6 +19,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ActionPermission.Services",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ActionPermission.Service.Interface", "ActionPermission.Service.Interface\ActionPermission.Service.Interface.csproj", "{784B8028-F4DD-46E2-8377-77E3F3CC69A2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ActionPermission.Context", "ActionPermission.DbContext\ActionPermission.Context.csproj", "{6BE127A6-FAFA-4B2F-A203-6470371DEFF0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ActionPermission.EntityMap", "ActionPermission.EntityMap\ActionPermission.EntityMap.csproj", "{554F2372-69D2-4EC4-A4A7-F8E84A499FFC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +61,14 @@ Global
 		{784B8028-F4DD-46E2-8377-77E3F3CC69A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{784B8028-F4DD-46E2-8377-77E3F3CC69A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{784B8028-F4DD-46E2-8377-77E3F3CC69A2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6BE127A6-FAFA-4B2F-A203-6470371DEFF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6BE127A6-FAFA-4B2F-A203-6470371DEFF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6BE127A6-FAFA-4B2F-A203-6470371DEFF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6BE127A6-FAFA-4B2F-A203-6470371DEFF0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{554F2372-69D2-4EC4-A4A7-F8E84A499FFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{554F2372-69D2-4EC4-A4A7-F8E84A499FFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{554F2372-69D2-4EC4-A4A7-F8E84A499FFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{554F2372-69D2-4EC4-A4A7-F8E84A499FFC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

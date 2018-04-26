@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ActionPermission.Services.Interface
 {
-    public interface IActionAuthorizationManagerServiceAsync
+    public interface IActionAuthorizationManagerService
     {
         ICollection<ActionPermissonModel> GetActionPermissonLists(string userId);
         Task<ICollection<ActionPermissonModel>> GetActionPermissonListsAsync(string userId);
