@@ -37,7 +37,7 @@ namespace ActionPermissionWeb
             });
             services.AddDbContext<ActionPermissionContext>(options =>
             {
-                options.UseSqlServer("Server=PRCNMG1L0311;Initial catalog=ActionPermissionContext;user id=sa;password=Root@admin");
+                options.UseSqlServer(Configuration.GetSection("ActionPermissionConnectionString").Value.ToString());
                 options.EnableSensitiveDataLogging(true);
             });
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
