@@ -28,21 +28,28 @@ namespace ActionPermission
         private readonly IHostingEnvironment hostingEnvironment;
         private readonly IActionAuthorizationService authorizationServices;
         private readonly ILogger logger;
-        public ActionPermissionFilter(IOptions<SystemNoOptions> options,IHostingEnvironment hostingEnvironment, IActionAuthorizationService authorizationServices,ILoggerFactory loggerFactory)
+        private readonly ActionPermissionOptions permissionOptions;
+        public ActionPermissionFilter(IOptions<SystemNoOptions> options, IOptions<ActionPermissionOptions> permissionOptions,IHostingEnvironment hostingEnvironment, IActionAuthorizationService authorizationServices,ILoggerFactory loggerFactory)
         {
             this.options = options.Value;
             this.hostingEnvironment = hostingEnvironment;
             this.authorizationServices = authorizationServices;
+            this.permissionOptions = permissionOptions?.Value ?? new ActionPermissionOptions();
             logger = loggerFactory.CreateLogger<ActionPermissionFilter>();
         }
 
         public async Task OnAuthorizationAsync(AuthorizationFilterContext context)
         {
+            if (permissionOptions.AnonymousPathList.Any(p => p == context.HttpContext.Request.Path))
+            {
+                return;
+            }
             if(!context.HttpContext.User.Identity.IsAuthenticated)
             {
-               await OnUnAuthorizationAsync(context);
-               return;
+                await OnUnAuthorizationAsync(context);
+                return;
             }
+            await AuthorizationCore(context);
         }
 
         public async Task AuthorizationCore(AuthorizationFilterContext context)
@@ -52,7 +59,7 @@ namespace ActionPermission
             var systemNoAttribute = descriptor.ControllerTypeInfo.GetCustomAttribute<SystemNoAttribute>();
             if(systemNoAttribute == null)
             {
-                SystemNo = hostingEnvironment.ApplicationName;
+                SystemNo = options?.SystemNo ?? hostingEnvironment.ApplicationName;
             }
             else
             {
@@ -77,7 +84,7 @@ namespace ActionPermission
                 ActionNo = actionNoAttribute.ActionNo;
             }
             var userId = context.HttpContext.User.Identity.Name;
-            var roleId = context.HttpContext.User.Claims.Where(p => p.Type == ClaimTypes.Role).First()?.Value;
+            var roleId = context.HttpContext.User.Claims.Where(p => p.Type == ClaimTypes.Role).FirstOrDefault()?.Value;
             var action = new ActionPermissonModel(SystemNo, ModuleNo, ActionNo);
             try
             {

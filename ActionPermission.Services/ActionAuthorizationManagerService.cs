@@ -16,6 +16,16 @@ namespace ActionPermission.Services
             this.authorizationRepository = authorizationRepository;
         }
 
+        public void ActionRegister(ActionPermissonModel action)
+        {
+            authorizationRepository.Add(action);
+        }
+
+        public Task ActionRegisterAsync(ActionPermissonModel action)
+        {
+            return authorizationRepository.AddAsync(action);
+        }
+
         public ICollection<ActionPermissonModel> GetActionPermissonLists(string userId)
         {
             return authorizationRepository.QueryList(p => true);
@@ -24,6 +34,16 @@ namespace ActionPermission.Services
         public async Task<ICollection<ActionPermissonModel>> GetActionPermissonListsAsync(string userId)
         {
             return await authorizationRepository.QueryListAsync(p=>true);
+        }
+
+        public void SaveChange()
+        {
+            authorizationRepository.SaveChange();
+        }
+
+        public Task SaveChangeAsync()
+        {
+            return authorizationRepository.SaveChangeAsync();
         }
     }
 }

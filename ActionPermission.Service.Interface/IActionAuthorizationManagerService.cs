@@ -10,5 +10,9 @@ namespace ActionPermission.Services.Interface
     {
         ICollection<ActionPermissonModel> GetActionPermissonLists(string userId);
         Task<ICollection<ActionPermissonModel>> GetActionPermissonListsAsync(string userId);
+        void ActionRegister(ActionPermissonModel action);
+        Task ActionRegisterAsync(ActionPermissonModel action);
+        void SaveChange();
+        Task SaveChangeAsync();
     }
 }

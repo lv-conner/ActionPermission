@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.7" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.3" />
   </ItemGroup>
 
   <ItemGroup>
@@ -14,7 +15,14 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ActionPermission.DbContext\ActionPermission.Context.csproj" />
+    <ProjectReference Include="..\ActionPermission.Domain\ActionPermission.Domain.csproj" />
+    <ProjectReference Include="..\ActionPermission.Helper\ActionPermission.Helper.csproj" />
+    <ProjectReference Include="..\ActionPermission.IRepository\ActionPermission.IRepository.csproj" />
+    <ProjectReference Include="..\ActionPermission.Repository\ActionPermission.Repository.csproj" />
+    <ProjectReference Include="..\ActionPermission.Service.Interface\ActionPermission.Service.Interface.csproj" />
+    <ProjectReference Include="..\ActionPermission.Services\ActionPermission.Services.csproj" />
     <ProjectReference Include="..\ActionPermission\ActionPermission.csproj" />
+    <ProjectReference Include="..\Common\Common.csproj" />
   </ItemGroup>
 
 </Project>

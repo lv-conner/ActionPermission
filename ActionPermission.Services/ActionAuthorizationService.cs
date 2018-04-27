@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using ActionPermission.Domain.Options;
+using System.Linq;
 
 namespace ActionPermission.Services
 {
@@ -50,9 +51,9 @@ namespace ActionPermission.Services
             bool result = false;
             if (userId == null)
             {
-                throw new ArgumentNullException("user Id can not null");
+                result = false;
             }
-            if (options.Admin == userId || options.AnonymousActionList.Contains(action))
+            if (options.Admin == userId || options.AnonymousActionList.Any(p=>p.ActionPermissionId == action.ActionPermissionId))
             {
                 result = true;
             }

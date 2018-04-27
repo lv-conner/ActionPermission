@@ -10,8 +10,12 @@ namespace ActionPermission.Domain.Options
         public ActionPermissionOptions()
         {
             AnonymousActionList = new List<ActionPermissonModel>();
+            AnonymousPathList = new List<string>();
         }
-        public List<ActionPermissonModel> AnonymousActionList { get; set; }
+        //匿名访问路径。
+        public List<string> AnonymousPathList { get; protected set; }
+        //匿名访问操作。
+        public List<ActionPermissonModel> AnonymousActionList { get; protected set; }
         public string Admin { get; set; }
     }
 }

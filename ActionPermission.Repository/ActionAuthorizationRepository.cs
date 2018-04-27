@@ -32,7 +32,11 @@ namespace ActionPermission.Repository
 
         public async Task<bool> FindAsync(string userId, string roleId, ActionPermissonModel action)
         {
-            var permission = await Set.Include(p => p.Roles).Include(p => p.Users).FirstAsync(p => p.ActionPermissionId == action.ActionPermissionId);
+            var permission = await Set.Include(p => p.Roles).Include(p => p.Users).FirstOrDefaultAsync(p => p.ActionPermissionId == action.ActionPermissionId);
+            if(permission == null)
+            {
+                return false;
+            }
             if (permission.Users.First(p => p.UserId == userId) != null || permission.Roles.First(p => p.PermissionId == action.ActionPermissionId && p.RoleId == roleId) != null)
             {
                 return true;
