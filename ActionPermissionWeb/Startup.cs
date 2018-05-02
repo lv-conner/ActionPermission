@@ -35,6 +35,7 @@ namespace ActionPermissionWeb
             {
                 options.Filters.AddService(typeof(ActionPermissionFilter));
             });
+            //配置连接字符串
             services.AddDbContext<ActionPermissionContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetSection("ActionPermissionConnectionString").Value.ToString());
