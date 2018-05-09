@@ -74,6 +74,15 @@ namespace Test
             }
         }
 
+        [Fact]
+        public void CheckPermisson()
+        {
+            using (var context = GetDbContext())
+            {
+                var hasPermission = context.Set<ActionPermissonModel>().Any(p => p.Roles.Any(t=>t.PermissionId == "Pms_Home_Home" && t.RoleId=="roleId") || p.Users.Any(t=>t.PermissionId== "Pms_Home_Home" && t.UserId== "bd6020c3-7d9f-4e96-a4b7-efe0cfd4977b"));
+            }
+        }
+
 
         public DbContext GetDbContext()
         {

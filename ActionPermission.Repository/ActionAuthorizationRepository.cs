@@ -18,33 +18,12 @@ namespace ActionPermission.Repository
         
         public bool Find(string userId,string roleId, ActionPermissonModel action)
         {
-            var permission = Set.Include(p => p.Roles).Include(p => p.Users).First(p=>p.ActionPermissionId == action.ActionPermissionId);
-
-            if (permission.Users.FirstOrDefault(p=>p.UserId == userId) != null || permission.Roles.FirstOrDefault(p => p.PermissionId == action.ActionPermissionId && p.RoleId == roleId) != null)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return Set.Any(p => p.Roles.Any(t => t.RoleId == roleId && t.PermissionId == action.ActionPermissionId) || p.Users.Any(t => t.UserId == userId && t.PermissionId == action.ActionPermissionId));
         }
 
         public async Task<bool> FindAsync(string userId, string roleId, ActionPermissonModel action)
         {
-            var permission = await Set.Include(p => p.Roles).Include(p => p.Users).FirstOrDefaultAsync(p => p.ActionPermissionId == action.ActionPermissionId);
-            if(permission == null)
-            {
-                return false;
-            }
-            if (permission.Users.First(p => p.UserId == userId) != null || permission.Roles.First(p => p.PermissionId == action.ActionPermissionId && p.RoleId == roleId) != null)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return await Set.AnyAsync(p => p.Roles.Any(t => t.RoleId == roleId && t.PermissionId == action.ActionPermissionId) || p.Users.Any(t => t.UserId == userId && t.PermissionId == action.ActionPermissionId));
         }
     }
 }
